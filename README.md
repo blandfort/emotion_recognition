@@ -5,15 +5,34 @@ _This package contains code for frame-based emotion recognition using deep learn
 
 ## Installation
 
-- Activate virtual environment
+### From Online Repository
+
+- (Optional): Activate virtual environment
+- `pip install --upgrade pip setuptools wheel`
+- `pip install git+https://github.com/blandfort/emotion_recognition.git`
+- Set up the FERPlus dataset (see below)
+
+
+### From Local Copy
+
+- Clone this repository
+- (Optional): Activate virtual environment
 - cd to this directory
 - `python3 setup.py install`
-- Get the FERPlus dataset (used for training and validating models):
-    - Get the FER-2013 dataset
-    - Download additional annotations from https://github.com/microsoft/FERPlus
-    - Use the script `generate_training_data.py` from FERPlus to compile the dataset based on the previous two resources
-        (`<dataset base folder>` typically should be set to the directory `FERPlus/data`;
-         see documentation of FERPlus repository for further details)
+- Set up the FERPlus dataset (see below)
+
+
+### Setting up FERPlus Dataset
+
+Currently we use the FERPlus dataset for training and validating models.
+
+To get this dataset, do the following:
+
+- First obtain the FER-2013 dataset
+- Download additional annotations from https://github.com/microsoft/FERPlus
+- Use the script `generate_training_data.py` from FERPlus to compile the dataset based on the previous two resources
+(`<dataset base folder>` typically should be set to the directory `FERPlus/data`;
+ see documentation of FERPlus repository for further details)
 
 
 ### Note on Requirements
