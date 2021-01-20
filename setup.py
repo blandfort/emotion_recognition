@@ -8,6 +8,7 @@ setuptools.setup(
     version="0.0.1",
     author="Philipp Blandfort",
     #author_email="author@example.com",
+    license='MIT',
     description="Frame-based emotion recognition using deep learning.",
     long_description=long_description,
     long_description_content_type="text/markdown",
