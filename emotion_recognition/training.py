@@ -5,9 +5,8 @@ import torch.optim as optim
 import os
 import numpy as np
 
-from networks import NetworkBasic
-from dataset import FERPlus
-from config import MODEL_PATH, DATA_DIR
+from .networks import NetworkBasic
+from .dataset import FERPlus
 
 
 transform = transforms.Compose([
@@ -19,25 +18,30 @@ transform = transforms.Compose([
 
 
 
-if __name__=='__main__':
-    # Following https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
+def train(data_dir, model_path, batch_size=4, num_epochs=20):
+    """Train the emotion recognition model.
+
+    The trained model is saved according to `model_path`.
+
+    Following
+    https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html"""
 
     # Load the datasets
     print("Loading the datasets ...")
-    trainset = FERPlus(DATA_DIR, train=True, transform=transform)
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size=4, shuffle=True, num_workers=2)
+    trainset = FERPlus(data_dir, train=True, transform=transform)
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=2)
 
-    testset = FERPlus(DATA_DIR, train=False, transform=transform)
-    testloader = torch.utils.data.DataLoader(testset, batch_size=4, shuffle=True, num_workers=2)
+    testset = FERPlus(data_dir, train=False, transform=transform)
+    testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=True, num_workers=2)
 
 
     # Initialize the network
     print("Initializing the network ...")
     net = NetworkBasic(in_c=1, nl=32, out_f=len(FERPlus.classes))
 
-    if os.path.isfile(MODEL_PATH):
+    if os.path.isfile(model_path):
         print("Loading model state ...")
-        net.load_state_dict(torch.load(MODEL_PATH))
+        net.load_state_dict(torch.load(model_path))
         net.train()
         #NOTE: Would be cleaner to also store optimizer state (see https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-a-general-checkpoint-for-inference-and-or-resuming-training)
 
@@ -51,7 +55,7 @@ if __name__=='__main__':
     # Training
     print("Starting training ...")
     try:
-        for epoch in range(20):  # loop over the dataset multiple times
+        for epoch in range(num_epochs):  # loop over the dataset multiple times
 
             running_loss = 0.0
             for i, data in enumerate(trainloader, 0):
@@ -94,6 +98,6 @@ if __name__=='__main__':
         raise
     finally:
         print("Saving model state ...")
-        torch.save(net.state_dict(), MODEL_PATH)
+        torch.save(net.state_dict(), model_path)
         print("Model saved.")
 

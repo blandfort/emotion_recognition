@@ -1,4 +1,12 @@
-__pycache__/*
+__pycache__*
+
+# Build files
+build/*
+dist/*
+*.egg-info*
+
+# Virtual environment files
+venv*
 
 # Model files (too large for repo)
 models/*
@@ -6,3 +14,6 @@ models/*
 # Datasets
 FERPlus
 FERPlus/*
+
+# VIM backup files
+*.swp
