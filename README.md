@@ -3,20 +3,35 @@
 _This package contains code for frame-based emotion recognition using deep learning._
 
 
-## Usage
+## Installation
 
+- Activate virtual environment
+- cd to this directory
+- `python3 setup.py install`
 
-### Set Up
+Usage:
 
-- Make sure that the requirements are installed (see below)
+- `train(data_dir, model_path)` from `emotion_recognition.training.py` can be used to train a model
+- `validate(data_dir, model_path)` from `emotion_recognition.validation.py` can be used to validate
+- Use EmotionRecognition class (give model path to init) for using the model in other ways
+
+TODO update following, and make stuff pretty
+
 - Get the FERPlus dataset:
     - Get the FER-2013 dataset
     - Download additional annotations from https://github.com/microsoft/FERPlus
     - Use the script `generate_training_data.py` from FERPlus to compile the dataset based on the previous two resources
         (`<dataset base folder>` typically should be set to the directory `FERPlus/data`;
          see documentation of FERPlus repository for further details)
-- Adjust configurations in `config.py`
 
+
+### Note on Requirements
+
+For OpenCV on debian, version 4.4.0.44 causes issues, but 4.2.0.34 works.
+
+
+
+## Usage
 
 ### Training your own Model
 
@@ -57,14 +72,6 @@ _This package contains code for frame-based emotion recognition using deep learn
 Potential extensions:
 
 - Consider audio data as well
-
-
-## Requirements
-
-- OpenCV: `pip install opencv-python` (note that on debian, version 4.4.0.44 causes issues, but 4.2.0.34 works)
-- PyTorch
-- Torchvision
-- facenet-pytorch
 
 
 ## Acknowledgements
